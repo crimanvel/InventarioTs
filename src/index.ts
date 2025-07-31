@@ -6,17 +6,14 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// 🏁 Mensaje de inicio
 app.get('/', (_req: Request, res: Response): void => {
   res.send('¡API de Inventario funcionando!');
 });
 
-// 📦 Listar todos los productos
 app.get('/productos', (_req: Request, res: Response): void => {
   res.json(productos);
 });
 
-// 🌟 Productos destacados (disponible y precio >= 1000)
 app.get('/productos/destacados', (_req: Request, res: Response): void => {
   const destacados: Producto[] = productos.filter(
     (p: Producto) => p.disponible && p.precio >= 1000
@@ -32,7 +29,6 @@ app.get('/productos/destacados', (_req: Request, res: Response): void => {
   res.json(destacados);
 });
 
-// 🧪 Filtrar por categoría
 app.get('/productos/categoria/:nombre', (req: Request<{ nombre: string }>, res: Response): void => {
   const nombreCategoria: string = req.params.nombre.toLowerCase();
 
@@ -43,7 +39,6 @@ app.get('/productos/categoria/:nombre', (req: Request<{ nombre: string }>, res: 
   res.json(filtrados);
 });
 
-// 🔍 Buscar producto por ID
 app.get('/productos/:id', (req: Request<{ id: string }>, res: Response): void => {
   const id: number = parseInt(req.params.id);
   const producto: Producto | undefined = productos.find((p: Producto) => p.id === id);
@@ -56,7 +51,6 @@ app.get('/productos/:id', (req: Request<{ id: string }>, res: Response): void =>
   res.json(producto);
 });
 
-// 🆕 Agregar nuevo producto
 app.post('/productos', (req: Request, res: Response): void => {
   const { nombre, precio, disponible, categorias } = req.body;
 
@@ -84,7 +78,6 @@ app.post('/productos', (req: Request, res: Response): void => {
   res.status(201).json(nuevoProducto);
 });
 
-// ✏️ Actualizar producto por ID
 app.put('/productos/:id', (req: Request<{ id: string }>, res: Response): void => {
   const id: number = parseInt(req.params.id);
   const producto: Producto | undefined = productos.find((p: Producto) => p.id === id);
@@ -115,7 +108,6 @@ app.put('/productos/:id', (req: Request<{ id: string }>, res: Response): void =>
   res.json(producto);
 });
 
-// ❌ Eliminar producto por ID
 app.delete('/productos/:id', (req: Request<{ id: string }>, res: Response): void => {
   const id: number = parseInt(req.params.id);
   const index: number = productos.findIndex((p: Producto) => p.id === id);
@@ -130,13 +122,11 @@ app.delete('/productos/:id', (req: Request<{ id: string }>, res: Response): void
   res.json(eliminado);
 });
 
-// 🐛 Ruta para inspección en tiempo real
 app.get('/debug/productos', (_req: Request, res: Response): void => {
   console.log('→ Estado actual de productos:', productos);
   res.json(productos);
 });
 
-// 🚀 Servidor arriba
 app.listen(PORT, (): void => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
