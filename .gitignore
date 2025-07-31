@@ -1,0 +1,23 @@
+# ⚙️ Dependencias
+node_modules/
+
+# 📦 Build
+dist/
+build/
+
+# ⚠️ Configuración local
+.env
+.env.local
+
+# 💅 Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# 🧪 Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 💻 Compilados TypeScript (si guardás JS también)
+*.js
+*.js.map
